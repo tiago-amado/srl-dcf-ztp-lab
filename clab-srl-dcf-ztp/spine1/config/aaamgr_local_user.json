@@ -2,12 +2,12 @@
  "users": {
   "admin": {
    "password": [
-    "$ar2$aOvsuj0ALlU=$r750fMa3ZEA/Di8dIfU2fQ=="
+    "$y$j9T$pNVjOgcNNGIWjBcdDfK/7.$Ir4uYxszxtqzVj5AGiZvdWJGs.bpLWBJvHON3YgqnC2"
    ],
    "failed_login_count": 0,
    "locked_out": false,
    "password_changed_after_first_login": false,
-   "password_update_time": "2025-10-02T20:20:09Z"
+   "password_update_time": "2025-10-03T22:58:31Z"
   }
  },
  "ntp_sync": false,
