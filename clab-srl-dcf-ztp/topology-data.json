@@ -6,7 +6,7 @@
       "prefix": "",
       "mgmt": {
         "network": "clab",
-        "bridge": "br-2b0177a71146",
+        "bridge": "br-5a6d77836f86",
         "ipv4-subnet": "172.20.20.0/24",
         "ipv4-gw": "172.20.20.1",
         "ipv6-subnet": "3fff:172:20:20::/64",
@@ -25,16 +25,16 @@
       "group": "",
       "labdir": "/home/clab/github/srl-dcf-ztp-lab/clab-srl-dcf-ztp/leaf1",
       "kind": "nokia_srlinux",
-      "image": "ghcr.io/nokia/srlinux:23.10.1",
+      "image": "ghcr.io/nokia/srlinux:25.7.2",
       "mgmt-net": "",
       "mgmt-intf": "",
       "mgmt-ipv4-address": "172.20.20.2",
       "mgmt-ipv4-prefix-length": 24,
       "mgmt-ipv6-address": "3fff:172:20:20::2",
       "mgmt-ipv6-prefix-length": 64,
-      "mac-address": "1a:0f:00:00:00:00",
+      "mac-address": "1a:2d:00:00:00:00",
       "labels": {
-        "clab-mgmt-net-bridge": "br-2b0177a71146",
+        "clab-mgmt-net-bridge": "br-5a6d77836f86",
         "clab-node-group": "",
         "clab-node-kind": "nokia_srlinux",
         "clab-node-lab-dir": "/home/clab/github/srl-dcf-ztp-lab/clab-srl-dcf-ztp/leaf1",
@@ -56,16 +56,16 @@
       "group": "",
       "labdir": "/home/clab/github/srl-dcf-ztp-lab/clab-srl-dcf-ztp/spine1",
       "kind": "nokia_srlinux",
-      "image": "ghcr.io/nokia/srlinux:23.10.1",
+      "image": "ghcr.io/nokia/srlinux:25.7.2",
       "mgmt-net": "",
       "mgmt-intf": "",
       "mgmt-ipv4-address": "172.20.20.3",
       "mgmt-ipv4-prefix-length": 24,
       "mgmt-ipv6-address": "3fff:172:20:20::3",
       "mgmt-ipv6-prefix-length": 64,
-      "mac-address": "1a:a1:01:00:00:00",
+      "mac-address": "1a:f7:01:00:00:00",
       "labels": {
-        "clab-mgmt-net-bridge": "br-2b0177a71146",
+        "clab-mgmt-net-bridge": "br-5a6d77836f86",
         "clab-node-group": "",
         "clab-node-kind": "nokia_srlinux",
         "clab-node-lab-dir": "/home/clab/github/srl-dcf-ztp-lab/clab-srl-dcf-ztp/spine1",
@@ -85,13 +85,13 @@
       "a": {
         "node": "leaf1",
         "interface": "e1-48",
-        "mac": "aa:c1:ab:98:75:8d",
+        "mac": "aa:c1:ab:72:43:ce",
         "peer": "z"
       },
       "z": {
         "node": "spine1",
         "interface": "e1-1",
-        "mac": "aa:c1:ab:e8:3d:ea",
+        "mac": "aa:c1:ab:8a:fc:ff",
         "peer": "a"
       }
     }
