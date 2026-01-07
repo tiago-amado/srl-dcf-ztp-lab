@@ -30,6 +30,7 @@ import json
 import threading
 import random
 import logging
+import traceback
 from logging.handlers import RotatingFileHandler
 from copy import copy, deepcopy
 from pygnmi.client import gNMIclient
@@ -66,7 +67,7 @@ SR_CA = '/ca.pem'
 SR_USER = 'admin'
 SR_PASSWORD = 'NokiaSrl1!'
 GNMI_PORT = '57400'
-SDK_MGR_FAILED = 'kSdkMgrFailed'
+SDK_MGR_FAILED = 'kSdkMgrFailed'   ### New convention = 'SDK_MGR_STATUS_FAILED'   ### Old convention = 'kSdkMgrFailed'
 NOS_TYPE = 'SRLinux'
 NEIGHBOR_CHASSIS = 'neighbor_chassis'
 NEIGHBOR_INT = 'neighbor_int'
@@ -115,6 +116,7 @@ def subscribeNotifications(stream_id):
         return False
     
     for i in range(len(event_types)):
+        print("For:",i,"=> Event:",event_types[i])
         subscribe(stream_id, event_types[i])
 
 
@@ -609,8 +611,10 @@ def handle_LldpNeighborNotification(notification: Notification, state, gnmiclien
 
 def handleNotification(notification: Notification, state, gnmiclient)-> None:
     if notification.HasField('lldp_neighbor'):
+        logging.info(f"handleNotification: notification.HasField => lldp_neighbor")
         handle_LldpNeighborNotification(notification.lldp_neighbor, state, gnmiclient)
     if notification.HasField("route"):
+        logging.info(f"handleNotification: notification.HasField => route")
         handle_RouteNotification(notification.route, state, gnmiclient)
     return False
 
@@ -620,37 +624,53 @@ def handleNotification(notification: Notification, state, gnmiclient)-> None:
 ####            AGENT AND THE LOG FILES          ####
 
 def Run(hostname):
+    print("RUN STart")
+    #print("Metadata:", metadata)
     ## - Register Application with the NDK manager
     register_request = AgentRegistrationRequest()
-    #register_request.agent_liveliness=10 ## ????
+    print("Register Request:", register_request)
+    #register_request.agent_liveliness=10 ## ???? do not activate => server closes the session if no client liveliness for 10s
     register_response = stub.AgentRegister(request=register_request, metadata=metadata)
+
+    print("Register response status:", register_response.status)
+
     if register_response.status == SdkMgrStatus.Value(SDK_MGR_FAILED):
+        print("Failed")
         logging.error(f"[REGISTRATION] :: Agent Registration failed with error {register_response.error_str}.")
         return
     else:
+        print("Success")
         logging.info(f"[REGISTRATION] :: Agent Registration successfully executed with id {register_response.app_id}.")
     app_id = register_response.app_id
     ## - Stream creation Request
-    notification_stream_create_request = NotificationRegisterRequest(op=NotificationRegisterRequest.Create)
+    notification_stream_create_request = NotificationRegisterRequest(op=NotificationRegisterRequest.Create)   ### New syntax = OPERATION_CREATE
     notification_stream_create_response = stub.NotificationRegister(request=notification_stream_create_request, metadata=metadata)
     stream_id = notification_stream_create_response.stream_id 
-    
+    #print("before try")
     try:
+        print("after try")
         ## - Add Notification subscriptions (request for all events)
+        print("Stream ID:", stream_id)
         subscribeNotifications(stream_id)
+        print("after subscribeNotifications")
         ## - Call server streaming notifications: response is a list of notifications
         ## - Actual streaming of notifications is a task for another service (SdkNotificationService)
         ## - NotificationsStream is a server-side streaming RPC which means that SR Linux (server) will send back multiple event notification responses after getting the agent's (client) request.
         notification_stream_request = NotificationStreamRequest(stream_id=stream_id)
+        print("NotificationStreamRequest:", notification_stream_request)
+        print("after notification_stream_request")
         notification_stream_response = sub_stub.NotificationStream(notification_stream_request, metadata=metadata)
+        print("after notification_stream_response")
         
         ## - Agent's main logic: upon receiving notifications evolve the system according with the new topology.
         state = State()
+        print("after state")
         state.underlay_protocol = UNDERLAY_PROTOCOL
-
+        print("Try before gnmic")
         ## - gNMI Server connection variables: default port for gNMI server is 57400
         gnmic_host = (hostname, GNMI_PORT) #172.20.20.11, 'clab-dc1-leaf1'
         with gNMIclient(target=gnmic_host, insecure=True, username=SR_USER, password=SR_PASSWORD, debug=True) as gc:
+            print("with gnmic")
             ## - Initial Router ID; IP, NET; int system0 and routing-policy configurations
             result = gc.get(path=["/platform/chassis/hw-mac-address"], encoding="json_ietf")
             #for e in [e for i in result['notification'] if 'update' in i.keys() for e in i['update'] if 'val' in e.keys()]:
@@ -742,17 +762,32 @@ def Run(hostname):
 
             ## - New notifications incoming
             count = 0
-            for r in notification_stream_response:
-                count += 1
-                for obj in r.notification:
-                    if obj.HasField('config') and obj.config.key.js_path == ".commit.end":
-                        logging.info('[TO DO] :: -commit.end config')
-                    else:
-                        handleNotification(obj, state, gc)
+            try:
+                for r in notification_stream_response:
+                    count += 1
+                    for obj in r.notification:
+                        if obj.HasField('config') and obj.config.key.js_path == ".commit.end":
+                            logging.info('[TO DO] :: -commit.end config')
+                        else:
+                            handleNotification(obj, state, gc)
+
+            except grpc.RpcError as e:
+                if e.code() == grpc.StatusCode.UNKNOWN and \
+                "Notification stream has been deleted" in str(e):
+                    logging.info("gNMI stream closed on server side")
+                else:
+                    raise
+        
 
     except grpc._channel._Rendezvous as err:
+        print("error1")
+        print("Error details:", str(err))
+        print("Traceback:", traceback.format_exc())
         logging.info(f"[EXITING NOW] :: {str(err)}")
     except Exception as e:
+        print("error2")
+        print("Error details:", str(e))
+        print("Traceback:", traceback.format_exc())
         logging.error(f"[EXCEPTION] :: {str(e)}")
         try:
             response = stub.AgentUnRegister(request=AgentRegistrationRequest(), metadata=metadata)
