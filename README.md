@@ -5,42 +5,30 @@ What if you could build an IP Data Center Fabric with plug-and-play routers?
 - No management platform
 - No AI magic  
 
-Just rack, cable, power up the routers — and the routers auto-configure themselves!
+Just rack, cable, power up the routers and the routers auto-configure themselves!  
 This is now possible using [Nokia SR Linux](https://learn.srlinux.dev/)   nodes and a custom [NDK agent](https://learn.srlinux.dev/ndk/)   that dynamically discovers the fabric topology — identifying roles (leaf/spine), links, neighbors — and performs full zero-touch provisioning.
-This lab provides a demo of a [`Decentralized and Dynamic Zero-Touch Provisioning of Leaf-Spine EVPN Data Centers`](https://ieeexplore.ieee.org/document/11080420) solution using [SRLinux NDK]((https://learn.srlinux.dev/ndk/)) framework.
-
-## Credits  
-This lab is using the code from the original [ZTP-DC-Fabric](https://github.com/MartimTavares/ZTP-DC-Fabric) repo.  
-Check out this great [IEEE Xplore article](https://lnkd.in/dKGvw6q9) as part of an academic research using a [Container Lab](https://containerlab.dev/) infrastructure with [Nokia SRLinux](https://learn.srlinux.dev/) and [NDK agents](https://learn.srlinux.dev/ndk/)  .
-
-## Related links  
-
-- [Original ZTP-DC-Fabric](https://github.com/MartimTavares/ZTP-DC-Fabric)  
-- [IEEE Xplore article](https://ieeexplore.ieee.org/document/11080420)  
-- [Container Lab](https://containerlab.dev/)  
-- [Nokia SR Linux](https://learn.srlinux.dev/)  
-- [SR Linux NetOps Development Kit (NDK)](https://learn.srlinux.dev/ndk/)  
+This lab provides a demo of a [Decentralized and Dynamic Zero-Touch Provisioning of Leaf-Spine EVPN Data Centers](https://ieeexplore.ieee.org/document/11080420) solution using [SRLinux NDK](https://learn.srlinux.dev/ndk/) framework.  
+Check out this great [IEEE Xplore article](https://lnkd.in/dKGvw6q9) as part of an academic research using a [Container Lab](https://containerlab.dev/) infrastructure with [Nokia SRLinux](https://learn.srlinux.dev/) and [NDK agents](https://learn.srlinux.dev/ndk/).
 
 # Overview  
 
-This Lab demonstrates how an SRLinux NDK agent can be used to configure ana full DC IP Fabric, node by node, in a distributed and autonomous way. 
-
-
-
-Inserir imagem DRAWIO
+This Lab demonstrates how an SRLinux NDK agent can be used to configure a full DC IP Fabric, node by node, in a distributed and autonomous way. The agent configures the underlay and the overlay BGP sessions, leaving the IP Fabric ready to provision new EVPN services. The agent continuously monitors networks events and reacts changes or failures adjusting the topology accordingly if required. 
 
 
 
 ## Requirements  
 
-This Lab requires a Linux server (can be WSL2) with Docker and ContainerLab.
+This Lab requires a Linux environment (can be WSL2) with Docker and ContainerLab. A standard public SRLinux image is used, as such, Internet connectivity is required to install software required by the SRL agent. 
 
 This Labs uses the following Sw versions:
   - ContainerLab 0.72.0
   - SRLinux 23.10.R3
-  - srlinux-ndk 0.5.0
-  - protobuf > 3.20
-  - 
+  - srlinux-ndk 0.4.0
+  - protobuf 4.23.3 (protobuf > 3.20)
+  - grpcio 1.56.0
+  - Python 3.11
+  - pygnmi 0.8.15
+  - numpy 2.4.0
 
 
 
@@ -52,10 +40,10 @@ clab deploy -t https://github.com/tiago-amado/srl-dcf-ztp-lab.git
 ```
 
 <details>
-<summary>Output example</summary>
+<summary>CLAB deployment output</summary>
 
 ```bash
-[*]─[C-PF4NF347]─[~/github/srl-dcf-ztp-lab]
+[*]─[linux]─[~/github/srl-dcf-ztp-lab]
 └──> clab deploy -t srl-dcf-ztp.clab.yml --reconfigure
 22:43:00 INFO Containerlab started version=0.72.0
 22:43:00 INFO Parsing & checking topology file=srl-dcf-ztp.clab.yml
@@ -166,14 +154,15 @@ clab deploy -t https://github.com/tiago-amado/srl-dcf-ztp-lab.git
 │         │ ghcr.io/nokia/srlinux:23.10.3 │         │ 3fff:172:20:20::9 │
 ╰─────────┴───────────────────────────────┴─────────┴───────────────────╯
 
-[*]─[C-PF4NF347]─[~/github/srl-dcf-ztp-lab]
+[*]─[linux]─[~/github/srl-dcf-ztp-lab]
 └──> 
 ```
 </details>  
 
 
+The following topology is deployed:
 
-VSCode image
+![pic](pics/topology.svg)
 
 
 
@@ -190,7 +179,7 @@ cat /var/log/srlinux/stdout/configurationless.<DATE_HOUR>log
 ```
 
 <details>
-<summary>Output example</summary>
+<summary>Agent Logs outputs</summary>
 
 ```bash
 root@leaf1:/# cat /var/log/srlinux/stdout/leaf1_configurationless.log 
@@ -278,7 +267,7 @@ Collecting info from requested paths (Get operation)...
 [INFO 22:48:50,338 root]
 [IS-IS] :: 2026-01-07 22:48:50.338361 Updated information on the IS-IS topology:
 
-<Output omitted>
+'<Output omitted>'
 
 [INFO 22:49:06,233 root]
 handleNotification: notification.HasField => route
@@ -465,27 +454,34 @@ Summary:
 ```
 </details> 
 
-### Exemplos de código
-
-????
 
 
-# Final notes
-Please keep in mind this lab is just a demonstrantion to prove the concept. It uses [Container Lab](https://containerlab.dev/) but can run on physical nodes. Howhever, the code is not optimized and not fully validated for production networks. 
+## Test with another topology  
+
+You may change the topology or use a new one but ensure you keep the agent files bindings under the CLAB yml file and have a minimum of 3 nodes. Keep in mind that the agent files must be present in every node (in a real life scenario, the routers would have an SRLinux image with the agent files included).  Before any changes, you must destroy the lab with cleanup, execute your changes and deploy the new topology.
 
 
 
-<details> 
-<summary>Docker</summary>
-
-```bash
-Copiar código
-docker ps
-docker images
-```
-</details> 
+# Conclusion
+This lab shows a very interesting idea to automate the IP Fabric configuration, distinct from what exists today in the industry. 
+Please keep in mind this lab is just a demonstration to prove the concept. It uses [Container Lab](https://containerlab.dev/) but can run on physical nodes. However, the code is not optimized and is not validated for production networks. 
 
 
+
+
+
+## Credits  
+This project was developed in a partnership between [Instituto Superior Técnico (IST)](https://tecnico.ulisboa.pt/pt/) University and Nokia.  
+This lab is using the code from the original [ZTP-DC-Fabric](https://github.com/MartimTavares/ZTP-DC-Fabric) repo.  
+
+
+## Related links  
+
+- [Original ZTP-DC-Fabric](https://github.com/MartimTavares/ZTP-DC-Fabric)  
+- [IEEE Xplore article](https://ieeexplore.ieee.org/document/11080420)  
+- [Container Lab](https://containerlab.dev/)  
+- [Nokia SR Linux](https://learn.srlinux.dev/)  
+- [SR Linux NetOps Development Kit (NDK)](https://learn.srlinux.dev/ndk/)  
 
  
 

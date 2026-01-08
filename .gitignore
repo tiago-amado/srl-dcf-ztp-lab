@@ -6,3 +6,4 @@ scripts/
 *.bak
 containerlab
 .DS_Store
+.vscode

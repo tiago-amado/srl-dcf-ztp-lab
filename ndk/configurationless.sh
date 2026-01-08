@@ -10,6 +10,9 @@ function main() {
     # Associate a handler with signal SIGTERM
     trap _term SIGTERM
 
+    # Execute configs - Pause to avoid conflict with CLAB commits
+    echo "Initializing agent venv" && sleep 10
+
     ### Configure DNS servers
     sr_cli --candidate-mode  "system dns server-list [ 8.8.8.8 ] network-instance mgmt"
     ### Config ACL R23 or R24+
@@ -18,8 +21,6 @@ function main() {
     #sr_cli --candidate-mode  acl acl-filter cpm type ipv4 entry 1 match ipv4 protocol tcp
     #sr_cli --candidate-mode acl acl-filter cpm type ipv4 entry 1 action accept 
 
-    # Execute configs - Pause to avoid conflict with CLAB commits
-    echo "Initializing agent venv" && sleep 10
     ### R23 gnmi
     sr_cli --candidate-mode  system gnmi-server admin-state enable
     sr_cli --candidate-mode --commit-at-end system gnmi-server network-instance mgmt delete tls-profile
@@ -62,8 +63,8 @@ function main() {
     export PYTHONPATH="$PYTHONPATH:/etc/opt/srlinux/appmgr/dcf-ztp:/opt/srlinux/bin:/etc/opt/srlinux/appmgr/venv-dev/lib/python3.6/site-packages:/etc/opt/srlinux/appmgr/venv-dev/lib/python3.11/site-packages"
     #export PYTHONPATH="$PYTHONPATH:/etc/opt/srlinux/appmgr/user_agents:/opt/srlinux/bin:/etc/opt/srlinux/appmgr/venv-dev/lib/python3.6/site-packages"
 
-    # Initializing agent Python 
-    echo "Initializing agent" && sleep 30
+    # Initializing agent Python  - Pause to allow CLAB nodes full deployment and avoid gnmic errors 
+    echo "Initializing agent" && sleep 40
 
 	# start the agent in the background (as a child process)
     #python ${main_module} &
