@@ -1,24 +1,26 @@
-# ZTP-DC-Fabric Intro  
+# ZTP-DC-Fabric NDK Agent 
 
-What if you could build an IP Data Center Fabric with plug-and-play routers?
-- No CLI configuration
-- No management platform
-- No AI magic  
+The ZTP-DC-Fabric NDK Agent enables the automated deployment of a Data Center Fabric using plug-and-play, self-configuring routers.
+Operating in a fully decentralized zero-touch provisioning (ZTP) model, the agent autonomously discovers each node’s role (leaf/spine), links, and neighbors.
+It also adapts dynamically to topology changes—adding, removing, or recovering nodes and links without manual intervention.
 
-Just rack, cable, power up the routers and the routers auto-configure themselves!  
-This is now possible using [Nokia SR Linux](https://learn.srlinux.dev/)   nodes and a custom [NDK agent](https://learn.srlinux.dev/ndk/)   that dynamically discovers the fabric topology — identifying roles (leaf/spine), links, neighbors — and performs full zero-touch provisioning.
-This lab provides a demo of a [Decentralized and Dynamic Zero-Touch Provisioning of Leaf-Spine EVPN Data Centers](https://ieeexplore.ieee.org/document/11080420) solution using [SRLinux NDK](https://learn.srlinux.dev/ndk/) framework.  
-Check out this great [IEEE Xplore article](https://lnkd.in/dKGvw6q9) as part of an academic research using a [Container Lab](https://containerlab.dev/) infrastructure with [Nokia SRLinux](https://learn.srlinux.dev/) and [NDK agents](https://learn.srlinux.dev/ndk/).
 
 # Overview  
 
-This Lab demonstrates how an SRLinux NDK agent can be used to configure a full DC IP Fabric, node by node, in a distributed and autonomous way. The agent configures the underlay and the overlay BGP sessions, leaving the IP Fabric ready to provision new EVPN services. The agent continuously monitors networks events and reacts changes or failures adjusting the topology accordingly if required. 
+What if you could build an IP Data Center Fabric with plug-and-play routers?  
+Just rack, cable, power up the routers and the routers auto-configure themselves!  No CLI configuration, no management platforms and no AI magic.  
+
+This lab demonstrates how this is possible using [Nokia SR Linux](https://learn.srlinux.dev/) nodes and a custom [NDK agent](https://learn.srlinux.dev/ndk/) that dynamically discovers the fabric topology — identifying roles (leaf/spine), links, neighbors — and performs full zero-touch provisioning.  
+
+The SRLinux NDK agents configure the full DC IP Fabric (underlay and the overlay BGP sessions, leaving the IP Fabric ready to provision new EVPN services), node by node, in a distributed and autonomous way. The agent continuously monitors networks events and reacts changes or failures adjusting the topology accordingly if required. 
+
+Check out this great [IEEE Xplore article](https://lnkd.in/dKGvw6q9), entitled ['Decentralized and Dynamic Zero-Touch Provisioning of Leaf-Spine EVPN Data Centers'](https://ieeexplore.ieee.org/document/11080420), developed as part of an academic research using a [Container Lab](https://containerlab.dev/) infrastructure with [Nokia SRLinux](https://learn.srlinux.dev/) and [NDK agents](https://learn.srlinux.dev/ndk/).
 
 
 
 ## Requirements  
 
-This Lab requires a Linux environment (can be WSL2) with Docker and ContainerLab. A standard public SRLinux image is used, as such, Internet connectivity is required to install software required by the SRL agent. 
+This Lab requires a Linux environment (can be WSL2) with Docker and ContainerLab. A standard public SRLinux image is used, as such, Internet connectivity is required to install software required by the SRL agent. Ensure there's no firewall, proxy or VPN blocking the software installation. If in a private network, you may need to update the `configurationless.sh` DNS server-list.
 
 This Labs uses the following Sw versions:
   - ContainerLab 0.72.0
@@ -466,11 +468,8 @@ You may change the topology or use a new one but ensure you keep the agent files
 
 
 # Conclusion
-This lab shows a very interesting idea to automate the IP Fabric configuration, distinct from what exists today in the industry. 
-Please keep in mind this lab is just a demonstration to prove the concept. It uses [Container Lab](https://containerlab.dev/) but can run on physical nodes. However, the code is not optimized and is not validated for production networks. 
-
-
-
+This lab shows a very interesting solution to automate the IP Fabric configuration, distinct from what exists today in the industry. 
+Please keep in mind this lab is just a demonstration to prove the concept. It uses [Container Lab](https://containerlab.dev/) but can run on physical nodes, however, the code is not optimized and is not validated for production networks. 
 
 
 ## Credits  
