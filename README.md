@@ -455,6 +455,9 @@ Summary:
 </details> 
 
 
+> [!NOTE]
+> Note: BGP will only be configured for leaves and border leaves, not for spines or super-spines. MP-iBGP is used for overlay EVPN services and is not required for spines.
+
 
 ## Test with another topology  
 
