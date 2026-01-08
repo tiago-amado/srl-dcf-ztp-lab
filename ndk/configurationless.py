@@ -646,9 +646,7 @@ def Run(hostname):
     notification_stream_create_request = NotificationRegisterRequest(op=NotificationRegisterRequest.Create)   ### New syntax = OPERATION_CREATE
     notification_stream_create_response = stub.NotificationRegister(request=notification_stream_create_request, metadata=metadata)
     stream_id = notification_stream_create_response.stream_id 
-    #print("before try")
     try:
-        print("after try")
         ## - Add Notification subscriptions (request for all events)
         print("Stream ID:", stream_id)
         subscribeNotifications(stream_id)
@@ -664,13 +662,13 @@ def Run(hostname):
         
         ## - Agent's main logic: upon receiving notifications evolve the system according with the new topology.
         state = State()
-        print("after state")
+        #print("after state")
         state.underlay_protocol = UNDERLAY_PROTOCOL
-        print("Try before gnmic")
+        #print("Try before gnmic")
         ## - gNMI Server connection variables: default port for gNMI server is 57400
         gnmic_host = (hostname, GNMI_PORT) #172.20.20.11, 'clab-dc1-leaf1'
         with gNMIclient(target=gnmic_host, insecure=True, username=SR_USER, password=SR_PASSWORD, debug=True) as gc:
-            print("with gnmic")
+            #print("with gnmic")
             ## - Initial Router ID; IP, NET; int system0 and routing-policy configurations
             result = gc.get(path=["/platform/chassis/hw-mac-address"], encoding="json_ietf")
             #for e in [e for i in result['notification'] if 'update' in i.keys() for e in i['update'] if 'val' in e.keys()]:
