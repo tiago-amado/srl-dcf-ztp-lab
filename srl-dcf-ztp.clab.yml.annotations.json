@@ -7,8 +7,8 @@
       "id": "leaf1",
       "icon": "router",
       "position": {
-        "x": 105,
-        "y": 329
+        "x": 161,
+        "y": 301
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,
@@ -19,8 +19,8 @@
       "id": "leaf2",
       "icon": "router",
       "position": {
-        "x": 175,
-        "y": 329
+        "x": 273,
+        "y": 301
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,
@@ -31,32 +31,20 @@
       "id": "leaf3",
       "icon": "router",
       "position": {
-        "x": 273,
-        "y": 329
+        "x": 315,
+        "y": 301
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,
-        "lng": 9.007895390625677
+        "lng": 9.107895390625677
       }
     },
     {
       "id": "leaf4",
       "icon": "router",
       "position": {
-        "x": 371,
-        "y": 329
-      },
-      "geoCoordinates": {
-        "lat": 48.684826888402256,
-        "lng": 9.007895390625677
-      }
-    },
-    {
-      "id": "leaf5",
-      "icon": "router",
-      "position": {
-        "x": 441,
-        "y": 329
+        "x": 427,
+        "y": 301
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,
@@ -67,8 +55,8 @@
       "id": "spine1",
       "icon": "router",
       "position": {
-        "x": 175,
-        "y": 203
+        "x": 189,
+        "y": 217
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,
@@ -79,8 +67,8 @@
       "id": "spine2",
       "icon": "router",
       "position": {
-        "x": 273,
-        "y": 203
+        "x": 245,
+        "y": 217
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,
@@ -91,8 +79,20 @@
       "id": "spine3",
       "icon": "router",
       "position": {
-        "x": 371,
-        "y": 203
+        "x": 343,
+        "y": 217
+      },
+      "geoCoordinates": {
+        "lat": 48.684826888402256,
+        "lng": 9.007895390625677
+      }
+    },
+    {
+      "id": "spine4",
+      "icon": "router",
+      "position": {
+        "x": 399,
+        "y": 217
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,
@@ -104,7 +104,7 @@
       "icon": "router",
       "position": {
         "x": 217,
-        "y": 119
+        "y": 133
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,
@@ -115,8 +115,8 @@
       "id": "border2",
       "icon": "router",
       "position": {
-        "x": 329,
-        "y": 119
+        "x": 371,
+        "y": 133
       },
       "geoCoordinates": {
         "lat": 48.684826888402256,

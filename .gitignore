@@ -1,9 +1,9 @@
-clab-anysec-macsec/
+clab-srl-dcf-ztp/
+certs/
+scripts/
 *.key
 *.log
-configs/webserver/__pycache__/
-configs/webserver/venv
 *.bak
 containerlab
 .DS_Store
-README.md
+.vscode

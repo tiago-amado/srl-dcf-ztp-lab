@@ -1,0 +1,258 @@
+name: srl-dcf-ztp
+prefix: ''
+topology:
+  kinds:
+    nokia_srlinux:
+      type: ixr-d2l
+      image: ghcr.io/nokia/srlinux:23.10.3
+    linux:
+      image: ghcr.io/hellt/network-multitool
+  nodes:
+    leaf1:
+      kind: nokia_srlinux
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 3
+    leaf2:
+      kind: nokia_srlinux
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 3
+    leaf3:
+      kind: nokia_srlinux
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 3
+    leaf4:
+      kind: nokia_srlinux
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 3
+    spine1:
+      kind: nokia_srlinux
+      type: ixr-d3l
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 2
+    spine2:
+      kind: nokia_srlinux
+      type: ixr-d3l
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 2
+    spine3:
+      kind: nokia_srlinux
+      type: ixr-d3l
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 2
+    spine4:
+      kind: nokia_srlinux
+      type: ixr-d3l
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 2
+    border1:
+      kind: nokia_srlinux
+      type: ixr-d3l
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 1
+    border2:
+      kind: nokia_srlinux
+      type: ixr-d3l
+      binds:
+      - ./plugin/show-fabric-plugin.py:/etc/opt/srlinux/cli/plugins/show-fabric-plugin.py:rw
+      - ./ndk/configurationless.yml:/etc/opt/srlinux/appmgr/configurationless.yml:rw
+      - ./ndk/configurationless.sh:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh:rw
+      - ./ndk/configurationless.yang:/etc/opt/srlinux/appmgr/dcf-ztp/yang/configurationless.yang:rw
+      - ./ndk/configurationless.py:/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.py:rw
+      - ./ndk/nodesRolesAlgorithm.py:/etc/opt/srlinux/appmgr/dcf-ztp/algorithms/nodesRolesAlgorithm.py:rw
+      exec:
+      - chmod +r /etc/opt/srlinux/appmgr/dcf-ztp/
+      - chmod +x /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
+      labels:
+        graph-level: 1
+  links:
+  - endpoints: ['leaf1:e1-48', 'spine1:e1-1']
+  - endpoints: ['leaf1:e1-49', 'spine2:e1-1']
+  - endpoints: ['leaf2:e1-48', 'spine1:e1-2']
+  - endpoints: ['leaf2:e1-49', 'spine2:e1-2']
+  - endpoints: ['leaf3:e1-48', 'spine3:e1-3']
+  - endpoints: ['leaf3:e1-49', 'spine4:e1-3']
+  - endpoints: ['leaf4:e1-48', 'spine3:e1-4']
+  - endpoints: ['leaf4:e1-49', 'spine4:e1-4']
+  - endpoints: ['spine1:e1-28', 'border1:e1-1']
+  - endpoints: ['spine1:e1-29', 'border2:e1-1']
+  - endpoints: ['spine2:e1-28', 'border1:e1-2']
+  - endpoints: ['spine2:e1-29', 'border2:e1-2']
+  - endpoints: ['spine3:e1-28', 'border1:e1-3']
+  - endpoints: ['spine3:e1-29', 'border2:e1-3']
+  - endpoints: ['spine4:e1-28', 'border1:e1-4']
+  - endpoints: ['spine4:e1-29', 'border2:e1-4']
+annotations:
+  freeTextAnnotations: []
+  groupStyleAnnotations: []
+  cloudNodeAnnotations: []
+  nodeAnnotations:
+  - id: leaf1
+    icon: router
+    position:
+      x: 161
+      y: 301
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677
+  - id: leaf2
+    icon: router
+    position:
+      x: 273
+      y: 301
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677
+  - id: leaf3
+    icon: router
+    position:
+      x: 315
+      y: 301
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.107895390625677
+  - id: leaf4
+    icon: router
+    position:
+      x: 427
+      y: 301
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677
+  - id: spine1
+    icon: router
+    position:
+      x: 189
+      y: 217
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677
+  - id: spine2
+    icon: router
+    position:
+      x: 245
+      y: 217
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677
+  - id: spine3
+    icon: router
+    position:
+      x: 343
+      y: 217
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677
+  - id: spine4
+    icon: router
+    position:
+      x: 399
+      y: 217
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677
+  - id: border1
+    icon: router
+    position:
+      x: 217
+      y: 133
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677
+  - id: border2
+    icon: router
+    position:
+      x: 371
+      y: 133
+    geoCoordinates:
+      lat: 48.684826888402256
+      lng: 9.007895390625677

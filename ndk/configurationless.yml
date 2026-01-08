@@ -1,17 +1,30 @@
+# Title: SRL DCF ZTP agent
+# Author: Nokia
+# Date: 2025-10-03
+# location /etc/opt/srlinux/appmgr/configurationless.yml
 configurationless:
-   run-as-user: root
-   path: /etc/opt/srlinux/appmgr/user_agents/
-   launch-command: /usr/local/bin/configurationless.sh
-   search-command: /bin/bash /usr/local/bin/configurationless.sh
+   path: /etc/opt/srlinux/appmgr/
+   launch-command: "/etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh --log-level debug"
+   search-command: /bin/bash /etc/opt/srlinux/appmgr/dcf-ztp/configurationless.sh
    wait-for-config: No
-   failure-threshold: 100
-   failure-action: wait=1
+   #start-order: 150
+   failure-threshold: 100   # default
+   failure-action: wait=5
+   restricted-operations: ['quit']
+   author: 'Nokia'
+   run-as-user: root
+   # YANG module references
    yang-modules:
        names: 
            - "configurationless"
+           - "srl_nokia-common"
+           - "ietf-inet-types"
+           - "srl_basic_agent"
        source-directories:
-           - "/opt/srtelemetry/yang/"
+           - "/etc/opt/srlinux/appmgr/dcf-ztp/yang"
+           - "/opt/srlinux/models/iana"
+           - "/opt/srlinux/models/ietf"
            - "/opt/srlinux/models/srl_nokia/models"
-           - "/opt/srlinux/models/srl_nokia/models/common"
-           - "/opt/srlinux/models/srl_nokia/models/network-instance"
-           - "/opt/srlinux/models/srl_nokia/models/system"
+
+
+
