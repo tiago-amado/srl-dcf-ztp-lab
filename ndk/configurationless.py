@@ -518,6 +518,9 @@ def handle_RouteNotification(notification: Notification, state, gnmiclient) -> N
 
 def handle_LldpNeighborNotification(notification: Notification, state, gnmiclient) -> None:
     interface_name = str(notification.key.interface_name)
+    ### mgmt0 interface notification must be ignored
+    if interface_name == "mgmt0":
+        return
     system_name = str(notification.data.system_description) 
     if containString(system_name, NOS_TYPE):
         system_name = NOS_TYPE
