@@ -14,7 +14,7 @@ function main() {
     echo "Initializing agent venv" && sleep 10
 
     ### Configure DNS servers
-    sr_cli --candidate-mode  "system dns server-list [ 8.8.8.8 ] network-instance mgmt"
+    sr_cli --candidate-mode "system dns server-list [ 8.8.8.8 10.2.255.1 ] network-instance mgmt"
     ### Config ACL R23 or R24+
     sr_cli --candidate-mode acl cpm-filter ipv4-filter entry 1 match protocol tcp
     sr_cli --candidate-mode  acl cpm-filter ipv4-filter entry 1 action accept 
