@@ -11,7 +11,7 @@ function main() {
     trap _term SIGTERM
 
     # Execute configs - Pause to avoid conflict with CLAB commits
-    echo "Initializing agent venv" && sleep 10
+    echo "Initializing agent venv" && sleep 30
 
     ### Configure DNS servers
     sr_cli --candidate-mode "system dns server-list [ 8.8.8.8 10.2.255.1 ] network-instance mgmt"
@@ -64,7 +64,7 @@ function main() {
     #export PYTHONPATH="$PYTHONPATH:/etc/opt/srlinux/appmgr/user_agents:/opt/srlinux/bin:/etc/opt/srlinux/appmgr/venv-dev/lib/python3.6/site-packages"
 
     # Initializing agent Python  - Pause to allow CLAB nodes full deployment and avoid gnmic errors 
-    echo "Initializing agent" && sleep 40
+    echo "Initializing agent" && sleep 30
 
 	# start the agent in the background (as a child process)
     #python ${main_module} &
